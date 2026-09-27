@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panduan Bore &amp; Barrel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+  :root {
+    --paper: #f2f4f5;
+    --surface: #ffffff;
+    --ink: #18222c;
+    --steel: #5a6673;
+    --line: #d9dee2;
+    --brass: #8a6420;
+    --brass-soft: #f4ead6;
+    --panel: #1e2a35;
+    --panel-text: #e8ecef;
+    --warn-bg: #fff4e0;
+    --warn-ink: #7a4a00;
+    --ok: #2f7a4c;
+    --display: 'Barlow Condensed', 'Arial Narrow', 'Roboto Condensed', system-ui, sans-serif;
+    --body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Consolas, 'Courier New', monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper: #121920;
+      --surface: #1a232c;
+      --ink: #e6eaee;
+      --steel: #9aa6b2;
+      --line: #2c3945;
+      --brass: #d9aa55;
+      --brass-soft: #2e2618;
+      --panel: #0b1117;
+      --panel-text: #e8ecef;
+      --warn-bg: #33270f;
+      --warn-ink: #f0c877;
+      --ok: #6cc28f;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #121920;
+    --surface: #1a232c;
+    --ink: #e6eaee;
+    --steel: #9aa6b2;
+    --line: #2c3945;
+    --brass: #d9aa55;
+    --brass-soft: #2e2618;
+    --panel: #0b1117;
+    --panel-text: #e8ecef;
+    --warn-bg: #33270f;
+    --warn-ink: #f0c877;
+    --ok: #6cc28f;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 16px/1.6 var(--body);
+    padding-inline: 16px;
+    padding-block: 32px 64px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; display: grid; gap: 28px; }
+
+  header { display: grid; gap: 10px; }
+  .eyebrow {
+    font: 600 12px/1 var(--body);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+  h1 {
+    font: 700 clamp(34px, 7vw, 48px)/1.05 var(--display);
+    margin: 0;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+  .lede { margin: 0; color: var(--steel); font-size: 17px; max-width: 62ch; }
+
+  .files {
+    background: var(--panel);
+    color: var(--panel-text);
+    border-radius: 10px;
+    padding: 18px 20px;
+    display: grid;
+    gap: 8px;
+    font-size: 15px;
+  }
+  .files h2 { font: 700 20px/1.2 var(--display); margin: 0 0 4px; letter-spacing: 0.02em; }
+  .file { display: grid; grid-template-columns: minmax(0, 13.5em) 1fr; gap: 12px; align-items: baseline; }
+  .file code { font: 500 13.5px/1.4 var(--mono); color: #f0c877; overflow-wrap: anywhere; }
+  .file span { color: #b9c3cc; }
+  @media (max-width: 520px) { .file { grid-template-columns: 1fr; gap: 0; } }
+
+  .step {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 0 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+  .num {
+    font: 700 34px/1 var(--display);
+    color: var(--brass);
+    font-variant-numeric: tabular-nums;
+  }
+  .step h2 { font: 700 26px/1.15 var(--display); margin: 2px 0 4px; text-wrap: balance; }
+  .step .time { font-size: 13px; color: var(--steel); margin: 0 0 12px; }
+  .step-body { display: grid; gap: 12px; min-width: 0; }
+  ol.do { margin: 0; padding-left: 1.25em; display: grid; gap: 8px; }
+  ol.do li { padding-left: 4px; }
+  ol.do li::marker { color: var(--steel); font-variant-numeric: tabular-nums; }
+  p { margin: 0; }
+  code { overflow-wrap: anywhere; }
+
+  .btn {
+    display: inline-block;
+    font: 600 14px/1.3 var(--body);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-bottom-width: 2px;
+    border-radius: 6px;
+    padding: 1px 7px;
+    white-space: nowrap;
+  }
+  .where { color: var(--steel); font-size: 14.5px; }
+
+  .type {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 8px 8px 8px 14px;
+    min-width: 0;
+  }
+  .type .lbl { font: 600 11px/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--steel); flex: none; }
+  .type code { font: 500 14.5px/1.4 var(--mono); flex: 1; min-width: 0; overflow-wrap: anywhere; }
+  .copy {
+    flex: none;
+    font: 600 13px/1 var(--body);
+    color: var(--ink);
+    background: var(--brass-soft);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  .copy:hover { border-color: var(--brass); }
+  .copy:focus-visible, a:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+
+  .note {
+    background: var(--warn-bg);
+    color: var(--warn-ink);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 15px;
+  }
+  .note b { font-weight: 600; }
+  .done { color: var(--ok); font-weight: 600; }
+  a { color: var(--brass); text-underline-offset: 2px; }
+
+  .trouble { display: grid; gap: 0; border-top: 1px solid var(--line); padding-top: 24px; }
+  .trouble h2, .shots h2 { font: 700 26px/1.15 var(--display); margin: 0 0 12px; }
+  .row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .row b { font-weight: 600; }
+  @media (max-width: 560px) { .row { grid-template-columns: 1fr; gap: 4px; } }
+
+  .shots { border-top: 1px solid var(--line); padding-top: 24px; }
+  .shots ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Modul 4 · PWA I · Praktikum PPB</span>
+    <h1>Bore &amp; Barrel: dari zip sampai online di Vercel</h1>
+    <p class="lede">Semua kode dari modul sudah terpasang di folder ini, sama persis dengan repo <a href="https://github.com/Redzzaja/PWA1_PrakPPB" target="_blank" rel="noopener">Redzzaja/PWA1_PrakPPB</a>. Kamu tidak perlu mengetik kode apa pun. Tugasmu cuma double-click 4 file dan klik beberapa tombol di GitHub dan Vercel. Total sekitar 15–20 menit.</p>
+  </header>
+
+  <section class="files" aria-label="Isi folder">
+    <h2>Yang ada di folder gunshop-modul4</h2>
+    <div class="file"><code>1-INSTALL.bat</code><span>Pasang Node.js, Git, dan library proyek. Sekali saja.</span></div>
+    <div class="file"><code>2-JALANKAN.bat</code><span>Menjalankan web di laptop (<code>npm run dev</code>).</span></div>
+    <div class="file"><code>3-TES-DI-HP.bat</code><span>Build lalu buka di HP lewat WiFi (<code>npm run build</code> + <code>preview --host</code>).</span></div>
+    <div class="file"><code>4-UPLOAD-KE-GITHUB.bat</code><span>Push semua kode ke repo GitHub milikmu.</span></div>
+    <div class="file"><code>src/, public/, vite.config.js</code><span>Kode proyek dari modul. Tidak perlu disentuh.</span></div>
+  </section>
+
+  <section class="step">
+    <div class="num">1</div>
+    <div class="step-body">
+      <h2>Buka folder proyek</h2>
+      <ol class="do">
+        <li>Buka <b>File Explorer</b> → <b>Downloads</b> → folder <b>gunshop-modul4-siap</b>.</li>
+        <li>Folder ini sudah ditaruh Claude langsung di laptopmu, jadi tidak perlu ekstrak zip apa pun. Semua langkah berikutnya dilakukan di folder ini.</li>
+      </ol>
+      <p class="note"><b>Pakai folder gunshop-modul4-siap</b>, bukan hasil ekstrak zip yang lama. File dari zip hasil download ditandai “dari internet” dan diblokir Smart App Control.</p>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="num">2</div>
+    <div class="step-body">
+      <h2>Double-click 1-INSTALL.bat</h2>
+      <p class="time">Sekali saja · 2–5 menit, tergantung internet</p>
+      <ol class="do">
+        <li>Double-click <b>1-INSTALL</b> (ikonnya roda gigi). Jendela hitam akan terbuka.</li>
+        <li>Kalau muncul layar biru <b>“Windows protected your PC”</b>, klik tulisan <span class="btn">More info</span> lalu <span class="btn">Run anyway</span>.</li>
+        <li>Kalau muncul <b>“Do you want to allow this app to make changes?”</b>, klik <span class="btn">Yes</span>. Ini muncul saat Node.js atau Git dipasang.</li>
+        <li>Tunggu sampai tertulis <span class="done">SELESAI. Install berhasil.</span> lalu tekan tombol apa saja untuk menutup.</li>
+      </ol>
+      <p class="note"><b>Masih muncul “Smart App Control blocked…”?</b> Klik <span class="btn">Okay</span>, lalu pakai cara manual: klik kanan area kosong di dalam folder → <span class="btn">Open in Terminal</span>, lalu ketik perintah ini satu per satu dan tekan Enter. Kalau muncul “'npm' is not recognized”, pasang Node.js dari <a href="https://nodejs.org/en/download" target="_blank" rel="noopener">nodejs.org</a> dulu (Windows Installer .msi, Next terus), tutup terminal, lalu buka lagi.</p>
+      <div class="type"><span class="lbl">Install</span><code id="t-i">npm.cmd install</code><button class="copy" type="button" data-copy="t-i">Salin</button></div>
+      <div class="type"><span class="lbl">Jalankan</span><code id="t-d">npx.cmd vite --open</code><button class="copy" type="button" data-copy="t-d">Salin</button></div>
+      <div class="type"><span class="lbl">Tes HP</span><code id="t-h">npm.cmd run build; npx.cmd vite preview --host</code><button class="copy" type="button" data-copy="t-h">Salin</button></div>
+      <p class="where">Skrip ini mengecek Node.js (Vite 8 butuh versi 20.19+ atau 22.12+) dan Git, memasangnya otomatis kalau belum ada, lalu menjalankan <code>npm install</code>. Perintah <code>npm install -D vite-plugin-pwa</code> dari modul sudah termasuk.</p>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="num">3</div>
+    <div class="step-body">
+      <h2>Double-click 2-JALANKAN.bat</h2>
+      <p class="time">Setara dengan <code>npm run dev</code> di modul</p>
+      <ol class="do">
+        <li>Double-click <b>2-JALANKAN</b>. Browser akan terbuka sendiri ke <b>localhost:5173</b> dan menampilkan toko <b>Bore &amp; Barrel</b>.</li>
+        <li>Coba klik menu <span class="btn">Catalog</span>, <span class="btn">About</span>, <span class="btn">Contact</span>, dan klik salah satu kartu senjata untuk membuka popup.</li>
+        <li><b>Cek Service Worker</b> (untuk laporan): tekan <span class="btn">F12</span> → klik tab <span class="btn">Application</span> (bahasa Indonesia: <span class="btn">Aplikasi</span>; kalau tidak terlihat, klik <span class="btn">»</span>) → di kiri klik <span class="btn">Service workers</span>. Statusnya harus <span class="done">activated and is running</span>. Kalau belum, klik <span class="btn">Start</span> (<span class="btn">Mulai</span>).</li>
+        <li>Selesai mencoba, tutup jendela hitamnya (klik X).</li>
+      </ol>
+      <p class="note"><b>Jangan tutup jendela hitam</b> selama web masih dipakai. Menutupnya sama dengan mematikan web.</p>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="num">4</div>
+    <div class="step-body">
+      <h2>Tes di HP: double-click 3-TES-DI-HP.bat</h2>
+      <p class="time">Setara dengan <code>npm run build</code> lalu <code>npm run preview -- --host</code></p>
+      <ol class="do">
+        <li>Pastikan HP dan laptop tersambung ke <b>WiFi yang sama</b>.</li>
+        <li>Double-click <b>3-TES-DI-HP</b>. Kalau muncul jendela Windows Firewall, klik <span class="btn">Allow access</span>.</li>
+        <li>Di jendela hitam, cari baris <b>Network:</b> misalnya <code>http://192.168.1.7:4173/</code>.</li>
+        <li>Ketik alamat itu persis di Chrome HP. Toko akan tampil versi mobile.</li>
+      </ol>
+      <p class="where">Tampilan bisa dicek lewat alamat WiFi ini, tapi fitur <b>Install app</b> dan offline di HP butuh HTTPS. Keduanya baru jalan setelah web online di Vercel (langkah 7).</p>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="num">5</div>
+    <div class="step-body">
+      <h2>Buat repo kosong di GitHub</h2>
+      <p class="time">Di browser · 1 menit</p>
+      <ol class="do">
+        <li>Buka <a href="https://github.com/new" target="_blank" rel="noopener">github.com/new</a> dan login. Belum punya akun? Klik <span class="btn">Sign up</span> dulu.</li>
+        <li>Di kolom <b>Repository name</b> ketik nama repo. Ganti <b>xx</b> dengan nomor kelompokmu:
+          <div class="type" style="margin-top:8px"><span class="lbl">Ketik</span><code id="t-repo">gunshop-modul4-kelxx</code><button class="copy" type="button" data-copy="t-repo">Salin</button></div>
+        </li>
+        <li>Pilih <b>Public</b>.</li>
+        <li><b>Biarkan “Add README” tetap mati (Off)</b>, dan jangan tambahkan .gitignore atau license. Repo harus kosong.</li>
+        <li>Klik tombol hijau <span class="btn">Create repository</span>.</li>
+        <li>Di halaman berikutnya, bagian <b>Quick setup</b>, pastikan <span class="btn">HTTPS</span> terpilih, lalu klik ikon <b>copy</b> (dua kotak) di ujung kanan link. Link-nya seperti <code>https://github.com/namakamu/gunshop-modul4-kelxx.git</code>.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="num">6</div>
+    <div class="step-body">
+      <h2>Double-click 4-UPLOAD-KE-GITHUB.bat</h2>
+      <p class="time">Push ke GitHub · 1–2 menit</p>
+      <ol class="do">
+        <li>Double-click <b>4-UPLOAD-KE-GITHUB</b>.</li>
+        <li>Hanya pertama kali: ketik <b>nama</b>mu lalu <span class="btn">Enter</span>, kemudian ketik <b>email akun GitHub</b>mu lalu <span class="btn">Enter</span>.</li>
+        <li>Saat diminta <b>Link repo</b>, tekan <span class="btn">Ctrl</span> + <span class="btn">V</span> (atau klik kanan) untuk menempel link dari langkah 5, lalu <span class="btn">Enter</span>.</li>
+        <li>Muncul jendela <b>Connect to GitHub</b>: klik <span class="btn">Sign in with your browser</span>. Di browser, klik tombol hijau <span class="btn">Authorize git-ecosystem</span>.</li>
+        <li>Tunggu sampai tertulis <span class="done">BERHASIL</span>. Halaman repo akan terbuka dan semua file sudah ada di sana.</li>
+      </ol>
+      <p class="where">Kalau nanti kamu mengubah kode, cukup double-click file ini lagi. Link tidak ditanya lagi, dan Vercel otomatis memperbarui web-nya.</p>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="num">7</div>
+    <div class="step-body">
+      <h2>Upload ke Vercel</h2>
+      <p class="time">Di browser · 2–3 menit</p>
+      <ol class="do">
+        <li>Buka <a href="https://vercel.com/signup" target="_blank" rel="noopener">vercel.com/signup</a>. Pilih <span class="btn">I'm working on personal projects</span> (Hobby), isi nama, klik <span class="btn">Continue</span>, lalu <span class="btn">Continue with GitHub</span> dan klik <span class="btn">Authorize</span>. Sudah punya akun? Langsung <span class="btn">Log in</span> → <span class="btn">Continue with GitHub</span>.</li>
+        <li>Di dashboard, klik <span class="btn">Add New…</span> (pojok kanan atas) → <span class="btn">Project</span>.</li>
+        <li>Di kotak <b>Import Git Repository</b>, cari <b>gunshop-modul4-kelxx</b> lalu klik <span class="btn">Import</span> di sebelahnya.
+          <br><span class="where">Repo tidak muncul? Klik <span class="btn">Install</span> atau <span class="btn">Adjust GitHub App Permissions</span>, pilih <b>All repositories</b>, klik <span class="btn">Save</span>, lalu kembali.</span></li>
+        <li>Di halaman <b>Configure Project</b>, cek <b>Framework Preset</b> sudah <b>Vite</b> (biasanya otomatis). Yang lain jangan diubah.</li>
+        <li>Klik <span class="btn">Deploy</span>. Tunggu sekitar 1 menit. Kalau mau, klik <b>Build Logs</b> untuk melihat output terminalnya (diminta di modul).</li>
+        <li>Muncul <span class="done">Congratulations!</span> Klik <span class="btn">Continue to Dashboard</span>. Link web kamu ada di bagian <b>Domains</b>, bentuknya <code>gunshop-modul4-kelxx.vercel.app</code>.</li>
+        <li>Buka link itu di Chrome HP → menu <span class="btn">⋮</span> → <span class="btn">Add to Home screen</span> / <span class="btn">Install app</span>. Aplikasi sekarang punya ikon di layar HP.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="shots">
+    <h2>Screenshot untuk laporan</h2>
+    <ul>
+      <li>Halaman Catalog, About, Contact di laptop (langkah 3)</li>
+      <li>Popup detail salah satu senjata (langkah 3)</li>
+      <li>F12 → Application → Service workers berstatus <i>activated and is running</i> (langkah 3)</li>
+      <li>Jendela hitam yang menampilkan baris <b>Network:</b>, dan tampilan web di HP (langkah 4)</li>
+      <li>Halaman repo GitHub berisi file proyek (langkah 6)</li>
+      <li>Halaman Configure Project dengan preset Vite, dan Build Logs / Congratulations di Vercel (langkah 7)</li>
+    </ul>
+    <p class="where" style="margin-top:10px">Isi setiap file kode (vite.config.js, index.css, guns.js, pages, App.jsx, App.css) bisa dilihat dengan klik kanan file → <span class="btn">Open with</span> → <span class="btn">Notepad</span> atau VS Code.</p>
+  </section>
+
+  <section class="trouble">
+    <h2>Kalau ada masalah</h2>
+    <div class="row"><b>“'npm' is not recognized…”</b><span>Node.js baru terpasang tapi Windows belum sadar. Restart laptop, lalu double-click 1-INSTALL.bat lagi.</span></div>
+    <div class="row"><b>Jendela hitam langsung tertutup</b><span>Folder belum diekstrak. Ulangi langkah 1.</span></div>
+    <div class="row"><b>Winget tidak ada / Node gagal dipasang otomatis</b><span>Skrip akan membuka nodejs.org. Download <b>Windows Installer (.msi)</b>, klik Next sampai Finish, lalu jalankan 1-INSTALL.bat lagi.</span></div>
+    <div class="row"><b>HP tidak bisa membuka alamat Network</b><span>Pastikan WiFi sama (bukan data seluler), dan klik Allow access di Windows Firewall. WiFi kampus kadang memblokir antar-perangkat; coba hotspot dari HP ke laptop.</span></div>
+    <div class="row"><b>Upload GitHub gagal, ditanya “Timpa isi repo?”</b><span>Repo kamu tidak kosong (ada README). Tekan <span class="btn">Y</span> supaya isinya diganti proyek ini.</span></div>
+    <div class="row"><b>Salah menempel link repo</b><span>Skrip otomatis menghapus link yang gagal. Double-click 4-UPLOAD-KE-GITHUB.bat lagi dan tempel link yang benar.</span></div>
+    <div class="row"><b>Vercel: Build failed</b><span>Buka Settings → Build and Deployment, pastikan Framework Preset <b>Vite</b>, lalu Redeploy.</span></div>
+  </section>
+</div>
+
+<script>
+  document.querySelectorAll('.copy').forEach((b) => {
+    b.addEventListener('click', () => {
+      const el = document.getElementById(b.dataset.copy);
+      const text = el.textContent;
+      const done = () => { b.textContent = 'Tersalin'; setTimeout(() => (b.textContent = 'Salin'), 1500); };
+      const fallback = () => {
+        const r = document.createRange(); r.selectNodeContents(el);
+        const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        b.textContent = 'Tekan Ctrl+C';
+      };
+      if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
+    });
+  });
+</script>
+</body>
+</html>
